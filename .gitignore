@@ -1,0 +1,15 @@
+# Windows:
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Python:
+__pycache__
+.ipynb_checkpoints
+dist
+build
+
+# My configurations:
+.vscode
+kaos
+web.md
