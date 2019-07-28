@@ -1,2 +1,0 @@
-class LinkedListUnderflow(ValueError):
-    pass

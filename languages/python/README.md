@@ -1,0 +1,246 @@
+<p align="right">参考 Python教程 廖雪峰</p>
+
+## 简介
+- Python:优雅 明确 简单
+    - 优点
+        - 网络应用
+        - 爬虫
+        - 数据分析
+        - AI
+        - 量化投资
+    - 缺点
+        - 运行速度慢:I/O密集还是CPU密集
+        - 高并发,多线程场景: GIL锁
+        - 代码不能加密:卖服务
+- 解释器:一行一行直接转译运行
+    - Cpython:C语言开发,官方版本
+    - Ipython:基于CPython之上的一个交互式解释器,Jupyter notebook使用的一个内核, 执行+探索
+        - 部署Jupyter notebook到服务器, 远程访问
+        - 高级功能
+            - 自动补全:`Tab`
+            - 内省:`object?(?)`
+            - 历史命令:`%hist`
+            - 运行脚本:`%run`
+            - 快速测量代码运行时间:`%timeit`
+            - 快速debug:`%debug` `%pdb`
+            - 交互式计算:`%pylab`
+            - 使用系统shell:`!ping`
+    - PyPy: 采用JIT技术，对Python代码进行动态编译,以提高速度
+    - Jpython: 运行在Java平台上的Python解释器
+    - IronPython: 运行在微软.Net平台上的Python解释器
+- 运行: `print()` `input()`
+    - Python交互环境
+    - 命令行模式
+        - 直接运行py文件:`hello.py`
+            - 在文件中添加:`#!/usr/bin/env python3`
+            - 添加执行权限:`chmod a+x hello.py`
+            - 命令行:`./hello.py`
+    - Python代码运行助手:在线输入Python代码，通过本机运行的一个Python脚本来执行代码
+## 基础
+- 数据类型
+    - 数:无大小限制 
+        - 整数`int`：整数运算永远是精确的 十六进制`0xff00`
+        - 浮点数`float`: 浮点运算可能有四舍五入误差 科学计数`1.23e8` 无限大`float('inf')`
+    - 字符串`str`：`Unicode`编码
+        - 转义字符`\`:不转义`r''`
+        - 编码:`ord()`<->`chr()`
+            - 计算机内存，统一使用Unicode编码
+            - 保存到硬盘或需要传输: 转换为字节`b'ABC'` 无法显示为ASCII字符的字节`\x##`
+            - 采用utf-8保存
+        - 指定UTF-8编码:`# -*- coding: utf-8 -*-`
+            - 文本编辑器选择UTF-8 without BOM
+        - 格式化:`'Hello, {0}, 成绩提升了 {1:.1f}%'.format('小明', 17.125)`
+    - 布尔值:`True`
+    - 空值:`None`
+    - 变量: 引用语义, 指向对象, 动态类型
+        - 常量: 全部大写的变量
+    - 有序列表: 查找和插入慢,占用空间少
+        - `list`:可变类型
+        - `tuple`:不可变类型 `(1,)`
+    - 存储和检索: 查找和插入快,占用内存
+        - `dict`: key必须为不可变对象 `.get(key, value)`
+        - `set`:`.add()` `.remove()`
+    - 类型定义：`def greeting(name: str) -> str:`
+- 条件判段和循环
+- 函数：`fun(*args, **kw)`
+    - 参数:位置参数->默认参数->可变参数->命名关键字参数->关键字参数
+        - 位置参数
+        - 默认参数:不要使用可变类型为默认参数
+        - 可变参数`*args`:函数调用时自动组装为一个tuple
+        - 关键字参数`**kw`:函数调用时自动组装为一个dict
+        - 命名关键字参数`*,`:必须传入参数名
+    - 递归：定义简单, 逻辑清晰, 但可能重复计算导致效率低
+        - 防止栈溢出: 尾递归优化(函数返回时调用自身本身,且return语句不能包含表达式),但标准解释器不支持
+- 模块:文件搜索路径`sys.path` `PYTHONPATH`
+    - 命令行运行模块`__name__=__main__`, 导入模块`__name__` 等于文件名
+- 高级特性
+    - 切片
+    - 迭代`for ... in ..`: 可迭代对象`isinstance(object, collections.Iterable)` 
+        - 下标迭代:`enumerate(iterable)`
+    - 列表生成式:`[k + '=' + v for k, v in d.items()]`
+    - 生成器:每次调用`next()`的时候执行，遇到`yield`语句返回，再次执行时从上次返回的`yield`语句处继续执行
+    - 迭代器`Iterable`：`for` (`iter(iterable)`->`Iterator`)
+        - `Iterator`(数据流)：`next()`, 计算是惰性的
+- [代码风格](https://github.com/syntomic/Languages_and_Algorithms/tree/master/python/pythonic/)
+## 编程范式
+- 面向过程编程: 程序视为一系列的命令集合，即一组函数的顺序执行
+- 面向对象编程(OOP): 程序视为一组对象的集合,一系列消息在各个对象之间传递执行
+    - 类和实例(封装):类是创建实例的模板,实例是具体的对象
+    - 访问限制(参数检查)：`__name`
+    - 继承:鸭子类型(对象只要看起来像鸭子，走起路来像鸭子，那它就可以被看做是鸭子)
+    - 多态:开闭原则(只管调用,不管细节)
+        - 对扩展开发:允许新增子类
+        - 对修改封闭:不需要依赖父类的方法
+    - 获取对象信息： `isinstance()` `dir()` `hasattr(obj, attr)`
+    - 实例属性和类属性:不要对实例属性和类属性使用相同的名字
+    - 虚函数:动态确定调用关系的函数
+    - 高级
+        - 限制实例属性: `__slots__ = (attr1, attr2)` 
+        - 对参数进行必要的检查: `@property`+ `@method.setter`
+        - 多重继承`MixIn`：`class MyTCPServer(TCPServer, ForkingMixIn)`
+        - 定制类
+            - `__repr__` vs `__str__`(`print()`)
+            - 迭代对象:`__iter__`+`__next__`
+            - 取出元素:`__getitem__(self, slice)`
+            - 获得属性(动态调用 REST API):`__getattr__`
+            - 实例本身调用:`__call__`
+        - 枚举类(`enum.Enum`)：枚举类型定义一个class类型，每个常量都是class的一个唯一实例
+        - 元类: 运行时动态创建
+            - 使用type: `type(class, (object,), dict(method=function))`
+            - 使用metaclass: 先定义metaclass，就可以创建类，最后创建实例
+                - 定义元类: `class Metaclass(type)`
+                - 指定元类:`class ClassName(metaclass=Metaclass)`
+                - 创建类: `Metaclass.__new__(cls, name, bases, attrs)`
+- 命令式编程:关心解决问题的步骤
+- 函数式编程:关心数据的映射(任意一个函数，只要输入是确定的，输出就是确定的) python部分支持(允许使用变量)
+    - 高阶函数: 把函数作为参数传入
+        - map: `map(function, Iterable) -> Iterator`
+        - reduce: `reduce(lambda x, y: x * 10 + y, Iterable)`
+        - filter: `filter(not_divisible(n), Iterable)`
+        - sorted：`sorted([1,-2,3], key=abs, reverse=True)`
+    - 返回函数：闭包(内部函数引用外部函数的参数和局部变量, 相关参数和变量都保存在返回的函数中)
+        - 返回闭包：返回的函数并没有立刻执行，而是直到调用了才执行 **返回函数不要引用任何循环变量，或者后续会发生变化的变量**
+    - 装饰器：代码运行期间动态增加功能的方式
+        - `function = log(params)(function)` + `@functools.wraps(func)`
+    - 偏函数：把函数的某些参数固定住，返回一个新函数
+        - `functools.partial(int, **kw)('10010') = int('10010', **kw)`
+## 错误、调试和测试
+- 错误类型
+    - 程序编写问题(BUG): 修复
+    - 用户输入造成: 检查用户输入
+    - 无法在程序运行过程中预测(异常): 捕获
+- 错误处理
+    - 错误码: 返回的正常结果和错误码混在一起，造成调用者必须用大量的代码来判断是否出错
+    - 捕获：`try...except...finally`
+    - 调用栈:一直向上拋
+    - 记录错误, 添加到日志文件：`logging.exception()`
+    - 抛出：`raise` 
+        - 捕获错误+抛出
+- 调试
+    - 断言: `assert expression, message` 
+        - 关闭断言: `python3 -O err.py`
+    - 日志: `logging.info(message)`
+        - 日志等级: `logging.basicConfig(level=logging.INFO)`
+    - 调试器: `python -m pdb err.py`
+        - 设置断点:`pdb.set_trace()`
+- 单元测试TDD：对一个模块、一个函数或者一个类来进行正确性检验的测试工作
+    - 准备/关闭环境:`setUp()` `tearDown()`
+    - 测试类:`unittest.TestCase`
+    - 测试方法:`test_`
+    - 断言:`self.assertEqual()`
+    - 运行: `python -m unittest mydict_test`
+- 文档测试(可做示例代码)：`doctest.testmod()`
+
+## IO编程
+- 同步：等待IO执行的结果, 简单
+    - 文件读写：`with open(filename, 'r', encoding='utf-8' ) `
+        - `__enter__` + `__exit__`
+    - 内存中读写:`io`
+        - StringIO
+        - BytesIO
+    - 操作文件和目录：`os`
+        - 兼容操作系统:`os.path.join()`
+        - 过滤文件:`[x for x in os.listdir('.') if os.path.isfile(x) and os.path.splitext(x)[1]=='.py']`
+    - 序列化 `pickle`
+        - 内存到可存储或传输(pickling)：`pickle.dumps()` `json.dumps()`
+        - 序列化对象重新读到内存里(unpicking)：`picle.loads()` `json.loads()`
+
+- [进程和线程](https://github.com/syntomic/Languages_and_Algorithms/tree/master/languages/python/socket/)：同步和数据共享
+    - 多进程: 变量拷贝在每个进程中
+        - Linux/Unix: `os.fork()`
+        - multiprocessing: 跨平台版本的多进程模块
+            - 进程间通信: `Queue()` `Pipes()`
+            - Pool:进程池的方式批量创建子进程
+        - subprocess:启动一个子进程，然后控制其输入和输出
+    - 多线程: 所有变量都由所有线程共享
+        - threading: `Thread`
+        - 高级语言的一条语句在CPU执行时是若干条语句
+            - 加锁: `lock = threading.Lock()`
+            - 获取/释放锁: `lock.acquire()`/`lock.release()`
+            - 死锁: 线程试图获取对方持有的锁时(循环依赖)
+            - GIL全局锁:多线程在Python中只能交替执行, 无法利用多核(CPython)
+        - TreadLocal：解决参数在各个函数之间互相传递的问题
+            - `threading.local()`: 每个线程都只能读写自己线程的独立副本，互不干扰
+    - 多线程vs多进程：Master-Worker
+        - 多进程：Apache
+            - 稳定性高
+            - 创建进程代价大
+        - 多线程：IIS(Windows)
+            - 任何线程出问题可能导致整个进程崩溃
+            - 效率稍高
+        - 多线程+多进程: 数量多, 效率不一定上升(任务切换时间)
+    - 分布式进程：`multiprocessing.managers`
+- 异步：消息循环, 主线程不断地重复“读取消息-处理消息”过程, 可以单进程单线程执行多任务(Nginx)
+    - 协程(Coroutine)：多进程+协程(利用多核CPU)
+        - 优点
+            - 极高执行效率, 没有线程切换的开销
+            - 不需要锁机制
+        - 实现: 通过`generator`
+        - `asyncio`: 异步模块
+            - Python3.4 : `@asyncio.coroutine`+ `yield from`
+            - Python3.5 : `async def function:` + `await`
+        - `aiohttp`: 基于asyncio实现的HTTP框架
+## 常用模块
+- 内建模块
+    - 日期和时间:`datetime`
+    - 集合模块:`collections`
+        - 自定义tuple对象: `namedtuple(name, [attr])` 
+        - 双端队列:`deque()`
+        - 默认Key: `defaultdict(lambda: 'N/A')`
+        - 有序Key: `OrderedDict()`
+        - 计数器:`Counter` 
+        - 命令行参数优先级查找:`ChainMap`
+    - 二进制编码方法: `base64` 
+        - 3字节的二进制数据编码位4字节的文本数据: 适用与数字证书签名, Cookie内容, URL
+    - 字节数据和其他二进制数据类型的转换: `struct`
+    - 散列算法: `hashlib`
+        - 加salt: `hmac`(Keyed-Hashing for Message Authentication)
+    - 用于操作迭代对象的函数: `itertools`
+    - 上下文管理 `contextlib`+ `@contextlib`
+    - 图形用户界面(GUI): `tkinter`
+    - 标记语言: `XML`(DOM vs SAX)
+    - 二分查找:`bisect`
+- 第三方模块
+    - 图像处理标准库: `Pillow`
+    - 处理URL资源: `request`
+    - 检测编码: `chardet`
+    - 系统监控: `psutil`
+    - 独立运行环境: `virtualenv`
+
+## 网络编程
+- TCP编程：`s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)`
+    - 客户端：`s.connect()` + `s.send()` + `s.recv(max)` + `s.close()`
+    - 服务器：`s.bind()` + `s.listen()` + `s.accept()` + `threading.Thread()` + `s.send()` + `s.close()`
+- UDP编程：不需要`listen`方法
+- WEB开发
+    - WSGI: 接受HTTP请求、解析HTTP请求、发送HTTP响应
+        - 调用函数:`application(environ, start_response)`
+        - 启动WSGI服务器:`wsgiref.simple_server.make_server('', 80, application)`
+    - Web框架: `Flask`
+- 电子邮件：MUA -> MTA -> MDA <- MUA
+    - 编写MUA把邮件发到MTA：协议 SMTP
+    - 编写MUA从MDA上收邮件：协议 POP3/IMAP
+- 访问数据库
+    - SQLite
+    - MySQL
+    - ORM框架：`SQLSALchemy`

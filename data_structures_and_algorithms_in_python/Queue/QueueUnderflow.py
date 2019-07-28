@@ -1,2 +1,0 @@
-class QueueUnderflow(ValueError):
-    pass

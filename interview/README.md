@@ -30,9 +30,9 @@
     - 行为面试
         - 项目经历
             - Situation: 简短的项目背景
-            - Task: **自己完成的任务**
+            - Task: 自己完成的任务
             - Action: 怎么完成的任务
-            - Result: **自己的贡献** 
+            - Result: 自己的贡献
         - 问题
             - 最大问题及如何解决
             - 学到了什么
@@ -124,7 +124,7 @@
 - 画图让抽象问题形象化
 - 举例让抽象问题具体化
 - 分解让复杂问题简单化
-    - merge and sort
+    - Merge and sort
 
 ## <span id="efficiency">优化空间和时间效率</span>
 

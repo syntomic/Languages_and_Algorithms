@@ -1,0 +1,3 @@
+class PersonValueError(ValueError):
+    pass
+    

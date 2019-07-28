@@ -1,2 +1,0 @@
-class StackUnderflow(ValueError):
-    pass

@@ -1,0 +1,2 @@
+class QueueUnderflow(ValueError):
+    pass
