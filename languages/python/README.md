@@ -81,7 +81,7 @@
     - 生成器:每次调用`next()`的时候执行，遇到`yield`语句返回，再次执行时从上次返回的`yield`语句处继续执行
     - 迭代器`Iterable`：`for` (`iter(iterable)`->`Iterator`)
         - `Iterator`(数据流)：`next()`, 计算是惰性的
-- [代码风格](https://github.com/syntomic/Languages_and_Algorithms/tree/master/python/pythonic/)
+- [代码风格](https://github.com/syntomic/Languages_and_Algorithms/tree/master/languages/python/pythonic/)
 ## 编程范式
 - 面向过程编程: 程序视为一系列的命令集合，即一组函数的顺序执行
 - 面向对象编程(OOP): 程序视为一组对象的集合,一系列消息在各个对象之间传递执行

@@ -43,7 +43,7 @@
                 - [字符串](https://github.com/syntomic/Languages_and_Algorithms/tree/master/algorithms/data_structures_and_algorithms_in_python/string/)
                 - 链接结构
             - 层次结构
-            - [树形结构](https://github.com/algorithms/syntomic/Languages_and_Algorithms/tree/master/data_structures_and_algorithms_in_python/Tree/)
+            - [树形结构](https://github.com/algorithms/syntomic/Languages_and_Algorithms/tree/master/algorithms/data_structures_and_algorithms_in_python/Tree/)
             - [图结构](https://github.com/syntomic/Languages_and_Algorithms/tree/master/algorithms/data_structures_and_algorithms_in_python/graph/)
         - 功能性数据结构：实现功能，eg：元素储存和访问
             - [栈](https://github.com/syntomic/Languages_and_Algorithms/tree/master/algorithms/data_structures_and_algorithms_in_python/Stack/)
