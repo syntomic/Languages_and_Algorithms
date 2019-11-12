@@ -8,7 +8,7 @@ def digit_at_index(index):
     while True:
         count = count_of_integers(digits)
 
-        if index < count * digits:
+        if index < count * digits: # n位数一共有 count*digits 个数
             return digit_at_index_with_count(index, digits)
 
         index -= count * digits

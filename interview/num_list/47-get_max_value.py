@@ -3,6 +3,7 @@ def get_max_value(values, rows, cols):
     if not values or rows <= 0 or cols <= 0:
         return 0
 
+    # [f(i,0),f(i,1),...,f(i,j-1),f(i-1,j),f(i-1,j+1),...,f(i-1,n-1)]
     max_values = [0]* cols
 
     for i in range(rows):

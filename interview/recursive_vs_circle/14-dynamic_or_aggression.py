@@ -50,5 +50,5 @@ def max_product_after_cutting_aggression(length):
     return pow(3, timesOf3) * (pow(2, timesOf2))
 
 if __name__ == "__main__":
-    print(max_product_after_cutting_aggression(8))
-    print(max_product_after_cutting_dynamic(8))
+    print(max_product_after_cutting_aggression(100))
+    print(max_product_after_cutting_dynamic(100))

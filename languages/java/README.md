@@ -1,0 +1,58 @@
+- Java: Java EE > Java SE > Java ME(-> Android)
+    - 基于JVM虚拟机(字节码)的跨平台语言
+    - 内置垃圾收集
+    - 稳定性和高性能
+    - 开源社区
+- 市场
+    - 互联网和企业应用(Java EE)
+    - 大数据平台(Java or Scala)
+    - Android移动平台
+- 名词
+    - JDK: Java Development Kit
+        - JRE + Compiler/debugger...
+    - JRE: Java Runtime Environment
+        - JVM + Runtime Library
+    - JSR: Java Specification Request
+        - RI: Reference Implementation
+        - TCK: Technology Compatibility Kit
+    - JCP: Java Community Process
+        - 审核JSR
+- 安装JDK + IDE
+    - `java`
+    - `javac`
+    - `jar`
+    - `javadoc`
+    - `jdb`
+- Hello, World!: `Hello.java`
+    - 类: `public class Hello {}`
+    - 入口: `public static void main(String[] args) {}` 
+- 入门
+    - 程序基础
+        - 基本结构
+        - 变量和数据类型
+        - 整数运算
+        - 浮点数运算
+        - 布尔运算
+        - 字符和字符串
+        - 数组类型
+    - 流程控制
+        - 输入和输出
+        - if判断
+        - switch多重选择
+        - while循环
+        - do while循环
+        - for循环
+        - break和continue
+    - 数组操作
+        - 遍历
+        - 排序
+        - 多维数组
+        - 命令行参数
+- 面向对象编程
+    - 基础
+    - Java核心类
+    - 反射
+- 异常处理
+- 注解
+- 集合
+- I/O

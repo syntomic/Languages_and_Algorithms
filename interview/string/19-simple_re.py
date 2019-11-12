@@ -41,3 +41,6 @@ if __name__ == "__main__":
     text = 'aaa'
     print(match(re_1, text))
     print(match(re_2, text))
+
+    import re
+    print(re.match(r'a.a', text))

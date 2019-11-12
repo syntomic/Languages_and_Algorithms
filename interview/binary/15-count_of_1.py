@@ -11,7 +11,7 @@ def count_of_1(n):
     while n != 0:
 
         count += 1
-        n = (n - 1) & n
+        n = (n - 1) & n # 把n的最左边的1变为0
 
     return count
 

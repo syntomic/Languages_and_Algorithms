@@ -37,6 +37,7 @@ def maze_solver_stack(maze, pos, end):
             if passable(maze, nextp):
                 if nextp == end:
                     return True
+                print(pos)
                 mark(maze, nextp)
                 st.append(nextp)
 

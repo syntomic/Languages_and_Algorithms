@@ -32,4 +32,4 @@ if __name__ == "__main__":
     string = "We are happy"
     print(str_replace(string))
 
-    #print(string.replace(' ', '%20'))
+    print(string.replace(' ', '%20'))

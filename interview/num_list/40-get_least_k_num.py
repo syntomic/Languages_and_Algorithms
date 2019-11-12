@@ -52,6 +52,7 @@ def get_least_k_nums_2(nums, k):
         if len(list_) < k:
             list_.append(nums[i])
         else:
+            # 利用堆或红黑树
             max_idx = list_.index(max(list_))
             if nums[i] < max(list_):
                 list_[max_idx] = nums[i]

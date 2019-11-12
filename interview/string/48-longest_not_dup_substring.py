@@ -1,3 +1,6 @@
+from collections import Counter
+Counter()
+
 def length_of_longest_substring(s):
     """
     最长不含重复字符的子字符串

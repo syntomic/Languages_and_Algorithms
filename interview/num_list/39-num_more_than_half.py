@@ -1,6 +1,6 @@
 def partition(nums, start, end):
     """
-    把nums[start:end+1]以nums[start]为界划分成两部分
+    把nums[start:end]以nums[start]为界划分成两部分
     返回：
         nums[start]的指标
     """

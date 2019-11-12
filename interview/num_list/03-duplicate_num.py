@@ -9,7 +9,7 @@ def duplicate_num(nums):
             return False
 
     for i in range(nums_len):
-
+        # 将nums[i]交换至下标为nums[i]的位置
         while nums[i] != i:
 
             if nums[i] == nums[nums[i]]:
@@ -20,6 +20,7 @@ def duplicate_num(nums):
             nums[i], nums[temp] = nums[temp], nums[i]
             
     return False
+
 
 def any_duplicate_num(nums):
     '''
@@ -46,7 +47,8 @@ def any_duplicate_num(nums):
     end = nums_len - 1
 
     while end > start:
-        middle = (start + end ) // 2
+        # 二分法, 重复数字出现在数目大于一半的范围中
+        middle = start + (end - start) // 2
         count = count_range(start, middle)
         if count > middle - start + 1:
             end = middle

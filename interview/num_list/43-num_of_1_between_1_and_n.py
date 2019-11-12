@@ -21,14 +21,17 @@ def number_of_1(str_n):
 
     num_first_digit = 0
 
+    # 最高位出现1的次数 
     if first > 1:
-        num_first_digit = pow(10, len_-1)
+        num_first_digit = pow(10, len_-1)  # 1346 ~ 21345
     elif first == 1:
-        num_first_digit = int(str_n[1:]) + 1
+        num_first_digit = int(str_n[1:]) + 1 # 12345
 
+    # 出现在最高位之外的其他位为1的次数
     num_other_digits = first * (len_ - 1) * pow(10, len_ - 2)
 
-    num_recursive = number_of_1(str_n[1:])
+    # 去掉最高位递归
+    num_recursive = number_of_1(str_n[1:]) # 2345
 
     return num_first_digit + num_other_digits + num_recursive
 

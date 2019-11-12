@@ -13,11 +13,14 @@ def print_min_num(nums):
 class my_int(int):
     """重新定义序"""
     def __lt__(self, another):
-        return str(self) + str(another) < str(self) + str(another)
+        return str(self) + str(another) <  str(another) + str(self)
+
 
 if __name__ == "__main__":
-    nums = [3, 32, 321]
+    nums = [0, 30]
     print(print_min_num(nums))
+    nums1 = [11, 5, 41]
+    print(print_min_num(nums1))
 
 
 

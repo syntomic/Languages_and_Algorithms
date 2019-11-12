@@ -23,11 +23,10 @@ def abs_exponent_power(base, exponent):
         return 1
     if exponent == 1:
         return base
-    
+    # 二分
     result = abs_exponent_power(base, exponent >> 1)
     result *= result
 
-    # 二分
     if exponent & 1 == 1:
         result *= base
     

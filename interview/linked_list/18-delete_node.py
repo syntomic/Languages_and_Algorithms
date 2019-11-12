@@ -37,8 +37,8 @@ def delete_duplicated_node(head):
     删除重复节点
     """
     first = ListNode(-1)
-    first.next = head
-    last = first
+    first.next = head # first.next 为第一个不重复的结点
+    last = first # last 为 head 前一个结点
     
     while head and head.next:
 

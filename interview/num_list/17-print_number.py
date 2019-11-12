@@ -9,7 +9,7 @@ def print_number(n):
     # 生成器
     number = ( x for x in range(1, pow(10, n)))
     for i in number:
-        print(i)
+        print(i, end=',')
 
 if __name__ == "__main__":
     n = 3

@@ -14,7 +14,7 @@ def reverse_llist(head):
         q.next = reversed_llist
         reversed_llist = q
 
-    return q
+    return reversed_llist
 
 if __name__ == "__main__":
     head = ListNode(1)
@@ -26,6 +26,8 @@ if __name__ == "__main__":
 
     head.printall()
 
+    # head = ListNode(1)
+    # head = None
     q = reverse_llist(head)
     q.printall()
 
