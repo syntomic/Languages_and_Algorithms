@@ -1,0 +1,111 @@
+- 客户端
+    - 创建实例: `client = socket.socket()`
+    - TCP
+        - 建立连接: `client.connect((IP, port))`
+        - 发送数据: `client.send(data)`
+        - 接受数据: `d = client.recv(buffsize)`
+        - 关闭连接: `client.close()`
+    - UDP
+        - 发送数据: `client.sendto(data, addr)`
+        - 接收数据: `client.recv(buffsize)`
+- 服务端
+    - 创建实例: `server = socket.socket()`
+    - 绑定ip和端口: `sever.bind((IP, port))`
+    - TCP
+        - 监听端口: `server.listen(backlog)`
+        - 接受客户端: `conn, addr = server.accept()`
+        - 接受数据: `data = conn.recv(buffsize)`
+        - 发送数据: `conn.send(data)`
+        - 关闭服务器: `server.close()`
+    - UDP
+        - 接受数据: `data, addr = server.recvfrom(buffsize)`
+        - 发送数据: `server.sendto(data, addr)`
+- 参数: `socket.socket(socket.AF_INET,socket.SOCK_STREAM,0)`
+    - 地址簇
+        - `socket.AF_INET`:  IPv4
+        - `socket.AF_INET6`:  IPv6
+        - `socket.AF_UNIX`: 只能够用于单一的Unix系统进程间通信
+    - 类型
+        - `socket.SOCK_STREAM`: 流式socket, for TCP
+        - `socket.SOCK_DGRAM`: 数据报式socket , for UDP
+        - `socket.SOCK_RAW`: 原始套接字
+        - `socket.SOCK_RAM`: 可靠的UDP形式，即保证交付数据报但不保证顺序
+        - `socket.SOCK_SEQPACKET`: 可靠的连续数据包服务
+    - 协议: 特定的地址家族相关的协议
+        - `0`: 系统就会根据地址格式和套接类别,自动选择一个合适的协议
+- 接受大数据
+    - 客户端可以多收几次，服务端给客户端发数据之前，先计算一下要发给客户端数据大小
+    - 粘包
+        - `time.sleep()`: 使缓冲区超时，不在等下一次的
+        - 只要收到服务端的数据大小，客户端就立刻给服务器一个响应, 服务端等待客户端确认
+    - FTP文件
+        - 服务端: 获取命令和文件名->判断文件是否存在->打开文件->获取文件大小->发送文件大小给客户端->等待客户端确认->边读边发
+        - 客户端: 判断是否是下载命令(get) ->发送下载命令和文件名 ->获取文件大小->发送确认信息->判断时候已经全部接收
+- socketserver: 使用IO多路复用以及多线程和多进程，从而实现并发处理多个客户端请求
+    - 类型 
+        - `BaseServer` 
+        - `TCPServer` -> `UnixStreamServer`
+        - `UDPServer` -> ` UnixDatagramServer`
+    - 创建
+        - 必须创建一个请求处理类，并且这个类要继承`BaseRequestHandlerclass`，并且还要重写父类里的`handle()`
+        - 必须实例化`TCPServer`，并且传递`(HOST, PORT)`和你在第一步创建的请求处理类给这个`TCPServer`
+        - 接下来调`server.handle_request()`(只处理一个请求)或者`server.serve_forever()`(处理多个客户端请求，永远执行)
+        - 调用`server_close()`去关闭`socket`
+    - 并发
+        - 多进程: `socketserver.ForkingTCPServer((HOST, PORT), MyServer)`
+        - 多线程: `socketserver.ThreadingTCPServer`
+- 进程与线程
+    - 线程: 主线程启动了子线程之后，子线程就是独立的, 上下文切换保存在cpu的寄存器
+        - `threading.Thread(target=func, args=(args, ))`
+        - `t.join()`: 等待线程结束
+        - 守护线程: 只要主线程执行完毕，它不管子线程有没有执行完毕, 就退出了
+            - `t.setDaemon(True)`
+- 锁
+    - GIL锁: 无论你启多少个线程，你有多少个cpu, Python在执行的时候会淡定的在同一时刻只允许一个线程运行
+        - 多线程共享数据: 高级语言的一条语句在CPU执行时是若干条语句
+    - 线程锁(互斥锁): 同时只允许一个线程更改数据
+        - `threading.Lock()`
+    - 信号量: 同时允许一定数量的线程更改数据, 维护着一个计数器，指定可同时访问资源或者进入临界区的线程数
+        - `threading.BoundedSemaphore(5)`
+        - 连接池. 线程池
+    - 事件: 一个线程会根据另外一个线程的状态产生一些变化
+        - `threading.Event()`
+    - 队列: 把数据放到队列中，中间去干别的事情, 解耦
+        - `queue.Queue()`
+        - 生产者消费者模型
+    - 多进程
+        - `multiprocessing.Queue()`
+        - `multiprocessing.Pipe()`
+        - `multiprocessing.Manager()`
+    - 协程: `yield` -> `Greenlet` -> `Gevent` or `async/await`
+        - 单线程里实现并发
+        - 修改共享数据不需加锁
+        - 用户程序里自己保存多个控制流的上下文栈
+        - 遇到IO操作自动切换到其他协程
+        - `gevent`: `monkey.patch_all()`
+- 并发: 高性能IO模型+事件循环
+    - 多进程: 开销大
+    - 多线程: 线程同步, 死锁
+    - 事件驱动: 任务多, 任务之间高度独立, 等待事件到来时, 某些任务会阻塞
+        - IO模型: 等待数据准备, 内核数据拷贝到进程中
+            - IO多路复用: 单个进程就可以同时处理多个网络连接的IO, 并不是对于单个连接能处理得更快，而是在于能处理更多的连接
+                - select: `readable,writeable,exceptional = select.select(inputs,outputs,inputs)`
+                    - `fd_set`用户态拷贝到内核态
+                    - 遍历`fd_set`
+                - epoll: `sel = selectors.DefaultSelector().register(server,selectors.EVENT_READ,accept)`
+                    - 内存映射: `epoll_wait()`
+                    - 回调函数: `epoll_ctl()`
+            - 异步IO
+- `RabbitMQ`
+    - Producer
+        - 建立socket
+        - 声明管道
+        - 声明queue
+        - 通过exchange发送内容至queue
+        - 关闭连接
+    - Consumers
+        - 建立socket连接
+        - 声明管道
+        - 声明queue
+        - 创建回调函数callback接受消息
+        - 开启不停消费
